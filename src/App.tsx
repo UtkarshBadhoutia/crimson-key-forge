@@ -10,6 +10,8 @@ import Audio from "./pages/Audio";
 import Accessories from "./pages/Accessories";
 import CustomBuild from "./pages/CustomBuild";
 import Support from "./pages/Support";
+import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/accessories" element={<Accessories />} />
           <Route path="/custom-build" element={<CustomBuild />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
