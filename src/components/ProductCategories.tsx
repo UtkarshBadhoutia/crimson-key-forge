@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Keyboard, Mouse, Headphones, Gamepad2, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const categories = [
   {
@@ -95,9 +96,11 @@ export const ProductCategories = () => {
                       ))}
                     </ul>
                     
-                    <Button variant="gaming" className="group/btn">
-                      Explore Collection
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    <Button variant="gaming" className="group/btn" asChild>
+                      <Link to={`/${category.id}`}>
+                        Explore Collection
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </Link>
                     </Button>
                   </div>
                 </div>
