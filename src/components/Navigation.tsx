@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, Search, ShoppingCart, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { User as SupabaseUser } from '@supabase/supabase-js';
+import { useCart } from '@/contexts/CartContext';
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
+  const { getCartCount } = useCart();
 
   useEffect(() => {
     // Check for existing session
@@ -67,11 +69,20 @@ export const Navigation = () => {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-              <Search className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="hover:bg-primary/10" asChild>
+              <Link to="/search">
+                <Search className="h-5 w-5" />
+              </Link>
             </Button>
-            <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-              <ShoppingCart className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="hover:bg-primary/10 relative" asChild>
+              <Link to="/cart">
+                <ShoppingCart className="h-5 w-5" />
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                    {getCartCount()}
+                  </span>
+                )}
+              </Link>
             </Button>
             
             {user ? (
