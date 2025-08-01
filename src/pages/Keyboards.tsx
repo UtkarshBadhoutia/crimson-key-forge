@@ -1,45 +1,56 @@
+import { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, Zap, Settings, Gamepad2 } from 'lucide-react';
+import { Star, Zap, Settings, Gamepad2, ShoppingCart } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useCart } from '@/contexts/CartContext';
 
 const Keyboards = () => {
-  const keyboards = [
-    {
-      name: "XTECH Apex Pro",
-      price: "$299",
-      image: "/placeholder.svg",
-      rating: 4.9,
-      features: ["Hot-swap", "RGB", "Wireless", "Tournament Ready"],
-      description: "Professional esports mechanical keyboard with ultra-responsive switches"
-    },
-    {
-      name: "XTECH Carbon Elite",
-      price: "$249",
-      image: "/placeholder.svg",
-      rating: 4.8,
-      features: ["Carbon Fiber", "RGB", "Macro Keys", "Anti-ghosting"],
-      description: "Premium carbon fiber construction for ultimate durability"
-    },
-    {
-      name: "XTECH Stealth",
-      price: "$199",
-      image: "/placeholder.svg",
-      rating: 4.7,
-      features: ["Silent Switches", "RGB", "Compact", "USB-C"],
-      description: "Silent operation without compromising performance"
-    },
-    {
-      name: "XTECH Thunder",
-      price: "$349",
-      image: "/placeholder.svg",
-      rating: 5.0,
-      features: ["OLED Display", "Hot-swap", "RGB", "Cloud Sync"],
-      description: "Next-gen keyboard with integrated OLED display"
+  const [keyboards, setKeyboards] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    fetchKeyboards();
+  }, []);
+
+  const fetchKeyboards = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('category', 'keyboards')
+        .order('name');
+
+      if (error) throw error;
+      setKeyboards(data || []);
+    } catch (error) {
+      console.error('Error fetching keyboards:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const handleAddToCart = async (productId: string) => {
+    await addToCart(productId, 1);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="flex items-center justify-center pt-32">
+          <div className="text-center">
+            <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading keyboards...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -77,18 +88,23 @@ const Keyboards = () => {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {keyboards.map((keyboard, index) => (
-              <Card key={index} className="group hover:shadow-glow transition-all duration-500 border-border/50 bg-card/50 backdrop-blur-sm">
+            {keyboards.map((keyboard) => (
+              <Card key={keyboard.id} className="group hover:shadow-glow transition-all duration-500 border-border/50 bg-card/50 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="relative mb-6 overflow-hidden rounded-lg bg-accent/20">
                     <img 
-                      src={keyboard.image} 
+                      src={keyboard.image_url || '/placeholder.svg'} 
                       alt={keyboard.name}
                       className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm rounded-full px-3 py-1">
-                      <span className="text-primary-foreground font-semibold text-sm">{keyboard.price}</span>
+                      <span className="text-primary-foreground font-semibold text-sm">${keyboard.price}</span>
                     </div>
+                    {!keyboard.in_stock && (
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                        <span className="text-white font-bold text-lg">Out of Stock</span>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="space-y-4">
@@ -103,7 +119,7 @@ const Keyboards = () => {
                     <p className="text-muted-foreground">{keyboard.description}</p>
                     
                     <div className="flex flex-wrap gap-2">
-                      {keyboard.features.map((feature, idx) => (
+                      {keyboard.features?.map((feature: string, idx: number) => (
                         <Badge key={idx} variant="outline" className="text-xs">
                           {feature}
                         </Badge>
@@ -111,8 +127,13 @@ const Keyboards = () => {
                     </div>
                     
                     <div className="flex gap-3 pt-4">
-                      <Button className="flex-1">
-                        Add to Cart
+                      <Button 
+                        className="flex-1" 
+                        onClick={() => handleAddToCart(keyboard.id)}
+                        disabled={!keyboard.in_stock}
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        {keyboard.in_stock ? 'Add to Cart' : 'Out of Stock'}
                       </Button>
                       <Button variant="outline" size="icon">
                         <Star className="w-4 h-4" />
