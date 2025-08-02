@@ -8,32 +8,32 @@ import { Star, Target, Zap, Gamepad2 } from 'lucide-react';
 const Mice = () => {
   const mice = [
     {
-      name: "XTECH Viper Pro",
-      price: "$129",
+      name: "Strafion Viper Pro",
+      price: "₹10,707",
       image: "/placeholder.svg",
       rating: 4.9,
       features: ["25,600 DPI", "Wireless", "RGB", "Ultra-light"],
       description: "Esports-grade wireless gaming mouse with precision tracking"
     },
     {
-      name: "XTECH Striker",
-      price: "$89",
+      name: "Strafion Striker",
+      price: "₹7,387",
       image: "/placeholder.svg",
       rating: 4.8,
       features: ["16,000 DPI", "Wired", "RGB", "Ergonomic"],
       description: "Comfortable ergonomic design for extended gaming sessions"
     },
     {
-      name: "XTECH Phantom",
-      price: "$159",
+      name: "Strafion Phantom",
+      price: "₹13,197",
       image: "/placeholder.svg",
       rating: 4.9,
       features: ["30,000 DPI", "Wireless", "OLED", "Modular"],
       description: "Revolutionary modular mouse with swappable components"
     },
     {
-      name: "XTECH Nano",
-      price: "$79",
+      name: "Strafion Nano",
+      price: "₹6,557",
       image: "/placeholder.svg",
       rating: 4.7,
       features: ["12,000 DPI", "Compact", "RGB", "Ambidextrous"],

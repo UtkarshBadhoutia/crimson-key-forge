@@ -288,7 +288,7 @@ const Profile = () => {
                                   <span>
                                     {item.product_snapshot?.name || "Product"} × {item.quantity}
                                   </span>
-                                  <span>${(item.unit_price * item.quantity).toFixed(2)}</span>
+                                  <span>₹{(item.unit_price * item.quantity).toLocaleString('en-IN')}</span>
                                 </div>
                               ))}
                             </div>

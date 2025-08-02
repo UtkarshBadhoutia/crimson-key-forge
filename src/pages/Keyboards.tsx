@@ -98,7 +98,7 @@ const Keyboards = () => {
                       className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm rounded-full px-3 py-1">
-                      <span className="text-primary-foreground font-semibold text-sm">${keyboard.price}</span>
+                      <span className="text-primary-foreground font-semibold text-sm">₹{keyboard.price?.toLocaleString('en-IN')}</span>
                     </div>
                     {!keyboard.in_stock && (
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center">

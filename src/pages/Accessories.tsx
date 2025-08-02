@@ -8,48 +8,48 @@ import { Star, Shield, Zap, Gamepad2 } from 'lucide-react';
 const Accessories = () => {
   const accessories = [
     {
-      name: "XTECH Carbon Mousepad",
-      price: "$49",
+      name: "Strafion Carbon Mousepad",
+      price: "₹4,067",
       image: "/placeholder.svg",
       rating: 4.8,
       features: ["XXL Size", "Carbon Fiber", "Anti-slip", "RGB Edge"],
       description: "Premium carbon fiber mousepad with RGB lighting"
     },
     {
-      name: "XTECH Wrist Rest Pro",
-      price: "$29",
+      name: "Strafion Wrist Rest Pro",
+      price: "₹2,407",
       image: "/placeholder.svg",
       rating: 4.7,
       features: ["Memory Foam", "Ergonomic", "Anti-slip", "RGB"],
       description: "Ergonomic memory foam wrist support with RGB accents"
     },
     {
-      name: "XTECH Cable Management",
-      price: "$19",
+      name: "Strafion Cable Management",
+      price: "₹1,577",
       image: "/placeholder.svg",
       rating: 4.9,
       features: ["Magnetic", "Adjustable", "RGB", "Cable Organizer"],
       description: "Magnetic cable management system for clean setups"
     },
     {
-      name: "XTECH Gaming Glasses",
-      price: "$79",
+      name: "Strafion Gaming Glasses",
+      price: "₹6,557",
       image: "/placeholder.svg",
       rating: 4.6,
       features: ["Blue Light Filter", "Anti-glare", "Lightweight", "UV Protection"],
       description: "Professional gaming glasses to reduce eye strain"
     },
     {
-      name: "XTECH Phone Stand",
-      price: "$39",
+      name: "Strafion Phone Stand",
+      price: "₹3,237",
       image: "/placeholder.svg",
       rating: 4.8,
       features: ["Adjustable", "RGB", "Wireless Charging", "Aluminum"],
       description: "Premium aluminum phone stand with wireless charging"
     },
     {
-      name: "XTECH Cleaning Kit",
-      price: "$24",
+      name: "Strafion Cleaning Kit",
+      price: "₹1,992",
       image: "/placeholder.svg",
       rating: 4.9,
       features: ["Complete Kit", "Safe Formula", "Microfiber", "Brush Set"],

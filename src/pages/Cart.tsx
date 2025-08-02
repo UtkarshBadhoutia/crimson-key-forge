@@ -64,7 +64,7 @@ const Cart = () => {
                         />
                         <div className="flex-1">
                           <h3 className="font-semibold text-lg">{item.product.name}</h3>
-                          <p className="text-primary font-bold">${item.product.price}</p>
+                          <p className="text-primary font-bold">₹{item.product.price?.toLocaleString('en-IN')}</p>
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="flex items-center gap-2">
@@ -103,7 +103,7 @@ const Cart = () => {
                         </div>
                       </div>
                       <div className="mt-4 flex justify-between text-sm text-muted-foreground">
-                        <span>Subtotal: ${(item.product.price * item.quantity).toFixed(2)}</span>
+                        <span>Subtotal: ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}</span>
                       </div>
                     </CardContent>
                   </Card>
@@ -119,7 +119,7 @@ const Cart = () => {
                   <CardContent className="space-y-4">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span>${getCartTotal().toFixed(2)}</span>
+                      <span>₹{getCartTotal().toLocaleString('en-IN')}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Shipping</span>
@@ -127,12 +127,12 @@ const Cart = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>Tax</span>
-                      <span>${(getCartTotal() * 0.08).toFixed(2)}</span>
+                      <span>₹{(getCartTotal() * 0.18).toLocaleString('en-IN')}</span>
                     </div>
                     <hr className="border-border/50" />
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span>${(getCartTotal() * 1.08).toFixed(2)}</span>
+                      <span>₹{(getCartTotal() * 1.18).toLocaleString('en-IN')}</span>
                     </div>
                     <Button className="w-full mt-6" size="lg">
                       Proceed to Checkout

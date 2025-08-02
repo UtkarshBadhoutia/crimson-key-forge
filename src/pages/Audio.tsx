@@ -8,32 +8,32 @@ import { Star, Volume2, Headphones, Mic } from 'lucide-react';
 const Audio = () => {
   const audioProducts = [
     {
-      name: "XTECH Phoenix Headset",
-      price: "$199",
+      name: "Strafion Phoenix Headset",
+      price: "₹16,517",
       image: "/placeholder.svg",
       rating: 4.9,
       features: ["7.1 Surround", "Noise Cancelling", "RGB", "Wireless"],
       description: "Premium wireless gaming headset with immersive surround sound"
     },
     {
-      name: "XTECH Echo Pro",
-      price: "$149",
+      name: "Strafion Echo Pro",
+      price: "₹12,367",
       image: "/placeholder.svg",
       rating: 4.8,
       features: ["Studio Quality", "Detachable Mic", "RGB", "Wired"],
       description: "Professional-grade headset for streamers and content creators"
     },
     {
-      name: "XTECH Thunder Speakers",
-      price: "$89",
+      name: "Strafion Thunder Speakers",
+      price: "₹7,387",
       image: "/placeholder.svg",
       rating: 4.7,
       features: ["2.1 System", "RGB", "Bluetooth", "Deep Bass"],
       description: "Powerful 2.1 speaker system with room-filling sound"
     },
     {
-      name: "XTECH Pulse Earbuds",
-      price: "$129",
+      name: "Strafion Pulse Earbuds",
+      price: "₹10,707",
       image: "/placeholder.svg",
       rating: 4.8,
       features: ["True Wireless", "ANC", "Gaming Mode", "Low Latency"],

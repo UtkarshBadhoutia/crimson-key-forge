@@ -86,7 +86,7 @@ export const Footer = () => {
               <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-2xl">X</span>
               </div>
-              <span className="ml-3 text-2xl font-bold">XTECH</span>
+              <span className="ml-3 text-2xl font-bold">Strafion</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm leading-relaxed">
               Precision-engineered gaming peripherals for enthusiasts who demand the ultimate in performance and customization.
@@ -104,7 +104,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>support@xtech.com</span>
+                <span>support@strafion.com</span>
               </div>
             </div>
 
@@ -153,7 +153,7 @@ export const Footer = () => {
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
-              © 2024 XTECH. All rights reserved.
+              © 2024 Strafion. All rights reserved.
             </div>
             <div className="flex items-center gap-6 text-sm">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">

@@ -38,12 +38,12 @@ const Support = () => {
       answer: "Our keyboards feature hot-swappable switches, allowing you to easily remove and replace switches without soldering. Simply use the included switch puller tool to remove switches and press new ones into place."
     },
     {
-      question: "What's the warranty on XTECH products?",
-      answer: "All XTECH products come with a 2-year limited warranty covering manufacturing defects. Gaming peripherals also include a 30-day satisfaction guarantee for returns."
+      question: "What's the warranty on Strafion products?",
+      answer: "All Strafion products come with a 2-year limited warranty covering manufacturing defects. Gaming peripherals also include a 30-day satisfaction guarantee for returns."
     },
     {
       question: "How do I set up RGB lighting profiles?",
-      answer: "Download the XTECH Software from our website. Connect your device and use the intuitive interface to create custom lighting effects, sync across devices, and save profiles to onboard memory."
+      answer: "Download the Strafion Software from our website. Connect your device and use the intuitive interface to create custom lighting effects, sync across devices, and save profiles to onboard memory."
     },
     {
       question: "Can I track my custom build order?",
@@ -67,7 +67,7 @@ const Support = () => {
               Support Center
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              We're here to help you get the most out of your XTECH gaming gear. Expert support whenever you need it.
+              We're here to help you get the most out of your Strafion gaming gear. Expert support whenever you need it.
             </p>
           </div>
         </div>
