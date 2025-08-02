@@ -43,14 +43,13 @@ export const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <div className="relative group">
-              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <div className="text-primary-foreground font-bold text-xl transform group-hover:scale-110 transition-transform">
-                  X
-                </div>
-              </div>
+              <img 
+                src="/lovable-uploads/f107386d-9110-4419-a60a-b36192ca57b2.png" 
+                alt="Logo"
+                className="h-10 w-auto transform group-hover:scale-110 transition-transform"
+              />
               <div className="absolute inset-0 bg-gradient-glow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
             </div>
-            <span className="ml-3 text-xl font-bold text-foreground">XTECH</span>
           </Link>
 
           {/* Desktop Navigation */}
