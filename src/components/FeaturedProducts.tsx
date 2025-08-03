@@ -171,7 +171,12 @@ export const FeaturedProducts = () => {
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   ADD TO CART
                 </Button>
-                <Button variant="outline" size="icon" className="border-primary/30 hover:bg-primary/10">
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="border-primary/30 hover:bg-primary/10"
+                  onClick={() => window.location.href = `/keyboards`}
+                >
                   <Eye className="h-4 w-4" />
                 </Button>
               </CardFooter>
@@ -181,7 +186,12 @@ export const FeaturedProducts = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Button variant="gaming" size="lg" className="font-rajdhani font-semibold">
+          <Button 
+            variant="gaming" 
+            size="lg" 
+            className="font-rajdhani font-semibold"
+            onClick={() => window.location.href = '/keyboards'}
+          >
             VIEW ALL PRODUCTS
           </Button>
         </div>

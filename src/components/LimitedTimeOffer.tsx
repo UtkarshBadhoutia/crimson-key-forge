@@ -102,6 +102,7 @@ export const LimitedTimeOffer = () => {
             <Button 
               size="xl" 
               className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-rajdhani font-bold text-lg px-8 py-4 shadow-elevated hover:shadow-crimson transition-all duration-300 hover:scale-105"
+              onClick={() => window.location.href = '/keyboards'}
             >
               <ShoppingCart className="h-5 w-5 mr-2" />
               SHOP KEYBOARDS NOW
@@ -111,6 +112,7 @@ export const LimitedTimeOffer = () => {
               variant="outline" 
               size="xl"
               className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 font-rajdhani font-semibold"
+              onClick={() => window.location.href = '/keyboards'}
             >
               VIEW ALL DEALS
             </Button>

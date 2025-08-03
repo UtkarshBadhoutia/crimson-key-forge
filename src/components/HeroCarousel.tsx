@@ -113,11 +113,21 @@ export const HeroCarousel = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="xl" className="group font-rajdhani font-bold text-lg px-8 py-4">
+              <Button 
+                variant="hero" 
+                size="xl" 
+                className="group font-rajdhani font-bold text-lg px-8 py-4"
+                onClick={() => window.location.href = '/keyboards'}
+              >
                 {slides[currentSlide].cta}
                 <Play className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="gaming" size="xl" className="font-rajdhani font-semibold">
+              <Button 
+                variant="gaming" 
+                size="xl" 
+                className="font-rajdhani font-semibold"
+                onClick={() => window.open('https://www.youtube.com/watch?v=mechanical-keyboard-review', '_blank')}
+              >
                 WATCH REVIEW
               </Button>
             </div>
