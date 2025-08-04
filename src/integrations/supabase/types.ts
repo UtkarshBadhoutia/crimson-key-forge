@@ -303,55 +303,82 @@ export type Database = {
       }
       products: {
         Row: {
+          brand: string | null
           category: Database["public"]["Enums"]["product_category"]
           created_at: string | null
           description: string | null
+          dimensions: Json | null
           features: string[] | null
           id: string
           image_url: string | null
           images: string[] | null
           in_stock: boolean | null
+          is_active: boolean | null
+          is_featured: boolean | null
+          model: string | null
           name: string
           price: number
           rating: number | null
           review_count: number | null
+          short_description: string | null
+          sku: string | null
           specifications: Json | null
           stock_quantity: number | null
+          tags: string[] | null
           updated_at: string | null
+          weight: number | null
         }
         Insert: {
+          brand?: string | null
           category: Database["public"]["Enums"]["product_category"]
           created_at?: string | null
           description?: string | null
+          dimensions?: Json | null
           features?: string[] | null
           id?: string
           image_url?: string | null
           images?: string[] | null
           in_stock?: boolean | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          model?: string | null
           name: string
           price: number
           rating?: number | null
           review_count?: number | null
+          short_description?: string | null
+          sku?: string | null
           specifications?: Json | null
           stock_quantity?: number | null
+          tags?: string[] | null
           updated_at?: string | null
+          weight?: number | null
         }
         Update: {
+          brand?: string | null
           category?: Database["public"]["Enums"]["product_category"]
           created_at?: string | null
           description?: string | null
+          dimensions?: Json | null
           features?: string[] | null
           id?: string
           image_url?: string | null
           images?: string[] | null
           in_stock?: boolean | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          model?: string | null
           name?: string
           price?: number
           rating?: number | null
           review_count?: number | null
+          short_description?: string | null
+          sku?: string | null
           specifications?: Json | null
           stock_quantity?: number | null
+          tags?: string[] | null
           updated_at?: string | null
+          weight?: number | null
         }
         Relationships: []
       }
@@ -363,6 +390,7 @@ export type Database = {
           first_name: string | null
           id: string
           last_name: string | null
+          phone: string | null
           updated_at: string | null
           user_id: string
         }
@@ -373,6 +401,7 @@ export type Database = {
           first_name?: string | null
           id?: string
           last_name?: string | null
+          phone?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -383,6 +412,7 @@ export type Database = {
           first_name?: string | null
           id?: string
           last_name?: string | null
+          phone?: string | null
           updated_at?: string | null
           user_id?: string
         }
@@ -428,6 +458,35 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wishlists: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wishlists_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "products"
