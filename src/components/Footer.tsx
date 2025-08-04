@@ -166,12 +166,6 @@ export const Footer = () => {
                 Cookies
               </a>
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="glow" size="sm">
-                <MessageCircle className="h-4 w-4 mr-2" />
-                Live Chat
-              </Button>
-            </div>
           </div>
         </div>
       </div>

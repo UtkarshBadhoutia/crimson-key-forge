@@ -44,8 +44,8 @@ export const Navigation = () => {
           <Link to="/" className="flex items-center">
             <div className="relative group">
               <img 
-                src="/lovable-uploads/f107386d-9110-4419-a60a-b36192ca57b2.png" 
-                alt="Logo"
+                src="/lovable-uploads/6ec415c3-7c31-435e-bea8-c3bda38e67e2.png" 
+                alt="Strafion Logo"
                 className="h-10 w-auto transform group-hover:scale-110 transition-transform"
               />
               <div className="absolute inset-0 bg-gradient-glow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
