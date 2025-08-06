@@ -18,6 +18,7 @@ import Search from "./pages/Search";
 import { ProductDetail } from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import LiveChat from "./components/LiveChat";
+import { MobileBottomNav } from "./components/MobileBottomNav";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <LiveChat />
+        <MobileBottomNav />
       </BrowserRouter>
       </CartProvider>
     </TooltipProvider>

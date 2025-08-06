@@ -5,6 +5,7 @@ import { LimitedTimeOffer } from '@/components/LimitedTimeOffer';
 import { ProductCategories } from '@/components/ProductCategories';
 import { WhyChooseUs } from '@/components/WhyChooseUs';
 import { Footer } from '@/components/Footer';
+import RecentlyViewed from '@/components/RecentlyViewed';
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
       <HeroCarousel />
       <FeaturedProducts />
       <LimitedTimeOffer />
+      <RecentlyViewed />
       <ProductCategories />
       <WhyChooseUs />
       <Footer />
