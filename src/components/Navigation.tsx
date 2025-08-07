@@ -68,12 +68,13 @@ export const Navigation = () => {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="hover:bg-primary/10" asChild>
+            {/* Desktop-only action buttons */}
+            <Button variant="ghost" size="icon" className="hidden md:flex hover:bg-primary/10" asChild>
               <Link to="/search">
                 <Search className="h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="ghost" size="icon" className="hover:bg-primary/10 relative" asChild>
+            <Button variant="ghost" size="icon" className="hidden md:flex hover:bg-primary/10 relative" asChild>
               <Link to="/cart">
                 <ShoppingCart className="h-5 w-5" />
                 {getCartCount() > 0 && (
@@ -85,13 +86,13 @@ export const Navigation = () => {
             </Button>
             
             {user ? (
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10" asChild>
+              <Button variant="ghost" size="icon" className="hidden md:flex hover:bg-primary/10" asChild>
                 <Link to="/profile">
                   <User className="h-5 w-5" />
                 </Link>
               </Button>
             ) : (
-              <Button variant="outline" asChild>
+              <Button variant="outline" className="hidden md:flex" asChild>
                 <Link to="/auth">Sign In</Link>
               </Button>
             )}
