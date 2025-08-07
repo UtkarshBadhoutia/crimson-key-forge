@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,8 +24,8 @@ interface ProductFiltersProps {
 
 export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductFiltersProps) => {
   const [filters, setFilters] = useState({
-    category: '',
-    brand: '',
+    category: 'all',
+    brand: 'all',
     minPrice: 0,
     maxPrice: 1000,
     search: '',
@@ -39,8 +40,8 @@ export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductF
     
     // Track active filters for display
     const active: string[] = [];
-    if (updated.category) active.push(`Category: ${updated.category}`);
-    if (updated.brand) active.push(`Brand: ${updated.brand}`);
+    if (updated.category && updated.category !== 'all') active.push(`Category: ${updated.category}`);
+    if (updated.brand && updated.brand !== 'all') active.push(`Brand: ${updated.brand}`);
     if (updated.search) active.push(`Search: ${updated.search}`);
     if (updated.minPrice > 0 || updated.maxPrice < 1000) {
       active.push(`Price: $${updated.minPrice} - $${updated.maxPrice}`);
@@ -49,8 +50,8 @@ export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductF
 
     onFiltersChange({
       ...updated,
-      category: updated.category || undefined,
-      brand: updated.brand || undefined,
+      category: updated.category !== 'all' ? updated.category : undefined,
+      brand: updated.brand !== 'all' ? updated.brand : undefined,
       minPrice: updated.minPrice > 0 ? updated.minPrice : undefined,
       maxPrice: updated.maxPrice < 1000 ? updated.maxPrice : undefined,
       search: updated.search || undefined,
@@ -59,8 +60,8 @@ export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductF
 
   const clearFilters = () => {
     const clearedFilters = {
-      category: '',
-      brand: '',
+      category: 'all',
+      brand: 'all',
       minPrice: 0,
       maxPrice: 1000,
       search: '',
@@ -73,9 +74,9 @@ export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductF
 
   const removeFilter = (filterToRemove: string) => {
     if (filterToRemove.startsWith('Category:')) {
-      updateFilters({ category: '' });
+      updateFilters({ category: 'all' });
     } else if (filterToRemove.startsWith('Brand:')) {
-      updateFilters({ brand: '' });
+      updateFilters({ brand: 'all' });
     } else if (filterToRemove.startsWith('Search:')) {
       updateFilters({ search: '' });
     } else if (filterToRemove.startsWith('Price:')) {
@@ -113,7 +114,7 @@ export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductF
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -131,7 +132,7 @@ export const ProductFilters = ({ onFiltersChange, categories, brands }: ProductF
                 <SelectValue placeholder="All Brands" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Brands</SelectItem>
+                <SelectItem value="all">All Brands</SelectItem>
                 {brands.map((brand) => (
                   <SelectItem key={brand} value={brand}>
                     {brand}
