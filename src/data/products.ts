@@ -124,7 +124,7 @@ export const products: Product[] = [
   {
     id: 'kb-005',
     name: 'Strafion Championship Edition',
-    description: 'Tournament-approved keyboard trusted by 500+ esports professionals. Featuring Strafion's proprietary optical switches with 0.1ms actuation, full N-key rollover, onboard tournament mode, and carbon fiber top plate. Includes a travel case and spare keycap set.',
+    description: "Tournament-approved keyboard trusted by 500+ esports professionals. Featuring Strafion's proprietary optical switches with 0.1ms actuation, full N-key rollover, onboard tournament mode, and carbon fiber top plate. Includes a travel case and spare keycap set.",
     short_description: 'Tournament-grade optical switch keyboard used by esports pros',
     price: 24999,
     category: 'keyboards',
@@ -174,7 +174,7 @@ export const products: Product[] = [
   {
     id: 'ms-001',
     name: 'Strafion Viper Pro',
-    description: 'Esports-grade wireless gaming mouse with a 25,600 DPI optical sensor, ultra-lightweight 58g design, Strafion's LightSpeed 2.4GHz wireless with <1ms latency, Teflon feet for effortless gliding, and up to 90 hours of battery life. Ambidextrous shape with programmable side buttons.',
+    description: "Esports-grade wireless gaming mouse with a 25,600 DPI optical sensor, ultra-lightweight 58g design, Strafion's LightSpeed 2.4GHz wireless with <1ms latency, Teflon feet for effortless gliding, and up to 90 hours of battery life. Ambidextrous shape with programmable side buttons.",
     short_description: 'Esports-grade wireless gaming mouse with precision tracking',
     price: 10707,
     category: 'mice',
