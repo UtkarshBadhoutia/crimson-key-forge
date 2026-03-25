@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Heart, Star, ShoppingCart } from 'lucide-react';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useCart } from '@/contexts/CartContext';
-import { Product } from '@/hooks/useProducts';
+import { Product } from '@/data/products';
 
 interface ProductCardProps {
   product: Product;
@@ -19,7 +19,7 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
   const { addToCart } = useCart();
   
   const inWishlist = isInWishlist(product.id);
-  const mainImage = Array.isArray(product.images) ? product.images[0] : product.images;
+  const mainImage = Array.isArray(product.images) ? product.images[0] : '/placeholder.svg';
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,13 +42,12 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
       <CardContent className="p-0">
         <Link to={`/product/${product.id}`} className="block">
           <div className="relative overflow-hidden rounded-t-lg">
-            {/* Image */}
             <div className="aspect-[4/3] bg-muted">
               {imageLoading && (
                 <div className="absolute inset-0 bg-muted animate-pulse" />
               )}
               <img
-                src={mainImage || '/placeholder.svg'}
+                src={mainImage}
                 alt={product.name}
                 className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
                   imageLoading ? 'opacity-0' : 'opacity-100'
@@ -58,7 +57,6 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
               />
             </div>
 
-            {/* Badges */}
             <div className="absolute top-3 left-3 space-y-1">
               {product.is_featured && (
                 <Badge variant="secondary" className="bg-primary text-primary-foreground">
@@ -72,7 +70,6 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
               )}
             </div>
 
-            {/* Wishlist Button */}
             <Button
               variant="ghost"
               size="icon"
@@ -86,7 +83,6 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
           </div>
 
           <div className="p-4 space-y-3">
-            {/* Brand and Name */}
             <div>
               <p className="text-sm text-muted-foreground font-medium">{product.brand}</p>
               <h3 className="font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
@@ -94,12 +90,10 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
               </h3>
             </div>
 
-            {/* Description */}
             <p className="text-sm text-muted-foreground line-clamp-2">
-              {product.short_description || product.description}
+              {product.short_description}
             </p>
 
-            {/* Rating */}
             {product.rating > 0 && (
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
@@ -112,11 +106,10 @@ export const ProductCard = ({ product, className = "" }: ProductCardProps) => {
               </div>
             )}
 
-            {/* Price and Actions */}
             <div className="flex items-center justify-between pt-2">
               <div>
                 <span className="text-2xl font-bold text-primary">
-                  ${product.price.toFixed(2)}
+                  ₹{product.price.toLocaleString('en-IN')}
                 </span>
               </div>
               
