@@ -1,56 +1,64 @@
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { 
   Twitter, 
   Instagram, 
   Youtube, 
   Github, 
-  MessageCircle, 
   Mail,
   MapPin,
   Phone,
   ArrowRight
 } from 'lucide-react';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 export const Footer = () => {
+  const [email, setEmail] = useState('');
+  const { toast } = useToast();
+
   const socialLinks = [
-    { name: 'Twitter', icon: Twitter, href: '#', badge: false },
-    { name: 'Instagram', icon: Instagram, href: '#', badge: true },
-    { name: 'YouTube', icon: Youtube, href: '#', badge: false },
-    { name: 'GitHub', icon: Github, href: '#', badge: true },
+    { name: 'Twitter', icon: Twitter },
+    { name: 'Instagram', icon: Instagram },
+    { name: 'YouTube', icon: Youtube },
+    { name: 'GitHub', icon: Github },
   ];
 
   const footerSections = [
     {
       title: 'Products',
       links: [
-        'Mechanical Keyboards',
-        'Gaming Mice',
-        'Audio Gear',
-        'Accessories',
-        'Custom Builds'
+        { label: 'Mechanical Keyboards', href: '/keyboards' },
+        { label: 'Gaming Mice', href: '/mice' },
+        { label: 'Audio Gear', href: '/audio' },
+        { label: 'Accessories', href: '/accessories' },
+        { label: 'Custom Builds', href: '/custom-build' },
       ]
     },
     {
       title: 'Support',
       links: [
-        'Knowledge Base',
-        'User Forums',
-        'Warranty',
-        'Returns',
-        'Contact Us'
+        { label: 'Knowledge Base', href: '/support' },
+        { label: 'Contact Us', href: '/support' },
+        { label: 'Warranty', href: '/support' },
+        { label: 'Returns', href: '/support' },
       ]
     },
     {
       title: 'Company',
       links: [
-        'About Us',
-        'Careers',
-        'Press Kit',
-        'Partners',
-        'Sustainability'
+        { label: 'About Us', href: '/support' },
+        { label: 'Careers', href: '/support' },
       ]
     }
   ];
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    toast({ title: 'Subscribed!', description: 'Thank you for subscribing to our newsletter.' });
+    setEmail('');
+  };
 
   return (
     <footer className="bg-background border-t border-border">
@@ -62,17 +70,20 @@ export const Footer = () => {
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
               Get the latest updates on new releases, exclusive drops, and gaming tips delivered to your inbox
             </p>
-            <div className="flex max-w-md mx-auto gap-4">
+            <form onSubmit={handleSubscribe} className="flex max-w-md mx-auto gap-4">
               <input
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
               />
-              <Button variant="hero">
+              <Button type="submit" variant="hero">
                 Subscribe
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -83,9 +94,11 @@ export const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-2xl">X</span>
-              </div>
+              <img 
+                src="/lovable-uploads/6ec415c3-7c31-435e-bea8-c3bda38e67e2.png" 
+                alt="Strafion Logo"
+                className="h-10 w-auto"
+              />
               <span className="ml-3 text-2xl font-bold">Strafion</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm leading-relaxed">
@@ -111,18 +124,14 @@ export const Footer = () => {
             {/* Social Links */}
             <div className="flex gap-4">
               {socialLinks.map((social) => (
-                <div key={social.name} className="relative">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="hover:bg-primary/10 hover:text-primary"
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </Button>
-                  {social.badge && (
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-pulse" />
-                  )}
-                </div>
+                <Button
+                  key={social.name}
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-primary/10 hover:text-primary"
+                >
+                  <social.icon className="h-5 w-5" />
+                </Button>
               ))}
             </div>
           </div>
@@ -133,13 +142,13 @@ export const Footer = () => {
               <h4 className="font-semibold text-foreground mb-4">{section.title}</h4>
               <ul className="space-y-3">
                 {section.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      to={link.href}
                       className="text-muted-foreground hover:text-primary transition-colors text-sm"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -153,18 +162,15 @@ export const Footer = () => {
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
-              © 2024 Strafion. All rights reserved.
+              © {new Date().getFullYear()} Strafion. All rights reserved.
             </div>
             <div className="flex items-center gap-6 text-sm">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/support" className="text-muted-foreground hover:text-primary transition-colors">
                 Privacy Policy
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              </Link>
+              <Link to="/support" className="text-muted-foreground hover:text-primary transition-colors">
                 Terms of Service
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                Cookies
-              </a>
+              </Link>
             </div>
           </div>
         </div>

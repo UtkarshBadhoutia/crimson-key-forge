@@ -1,40 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Eye } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
-import { useProducts } from '@/hooks/useProducts';
-import { Product } from '@/hooks/useProducts';
+import { getRecentlyViewedIds } from '@/lib/localStorage';
+import { getProductById } from '@/data/products';
 
 export const RecentlyViewed = () => {
-  const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
-  const { products = [] } = useProducts();
-
-  useEffect(() => {
-    // Get recently viewed products from localStorage
-    const recent = localStorage.getItem('recentlyViewed');
-    if (recent) {
-      const recentIds = JSON.parse(recent);
-      const recentProducts = products.filter(product => 
-        recentIds.includes(product.id)
-      ).slice(0, 4);
-      setRecentlyViewed(recentProducts);
-    }
-  }, [products]);
-
-  // Function to add product to recently viewed (call from ProductDetail page)
-  const addToRecentlyViewed = (productId: string) => {
-    const recent = localStorage.getItem('recentlyViewed');
-    let recentIds = recent ? JSON.parse(recent) : [];
-    
-    // Remove if already exists and add to beginning
-    recentIds = recentIds.filter((id: string) => id !== productId);
-    recentIds.unshift(productId);
-    
-    // Keep only last 10 items
-    recentIds = recentIds.slice(0, 10);
-    
-    localStorage.setItem('recentlyViewed', JSON.stringify(recentIds));
-  };
+  const recentlyViewed = useMemo(() => {
+    const ids = getRecentlyViewedIds();
+    return ids.map(id => getProductById(id)).filter(Boolean).slice(0, 4);
+  }, []);
 
   if (recentlyViewed.length === 0) return null;
 
@@ -66,16 +41,13 @@ export const RecentlyViewed = () => {
         >
           {recentlyViewed.map((product, index) => (
             <motion.div
-              key={product.id}
+              key={product!.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <ProductCard 
-                product={product}
-                className="group-hover:shadow-crimson transition-all duration-300"
-              />
+              <ProductCard product={product!} />
             </motion.div>
           ))}
         </motion.div>
@@ -99,15 +71,4 @@ export const RecentlyViewed = () => {
   );
 };
 
-// Export the function to be used in ProductDetail page
 export default RecentlyViewed;
-export const addToRecentlyViewed = (productId: string) => {
-  const recent = localStorage.getItem('recentlyViewed');
-  let recentIds = recent ? JSON.parse(recent) : [];
-  
-  recentIds = recentIds.filter((id: string) => id !== productId);
-  recentIds.unshift(productId);
-  recentIds = recentIds.slice(0, 10);
-  
-  localStorage.setItem('recentlyViewed', JSON.stringify(recentIds));
-};
