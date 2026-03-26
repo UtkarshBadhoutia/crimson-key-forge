@@ -20,6 +20,8 @@ import { ProductDetail } from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import LiveChat from "./components/LiveChat";
 import { MobileBottomNav } from "./components/MobileBottomNav";
+import { ScrollToTop } from "./components/ScrollToTop";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +32,9 @@ const App = () => (
         <CartProvider>
           <Toaster />
           <Sonner />
+          <LoadingScreen />
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/keyboards" element={<Keyboards />} />
