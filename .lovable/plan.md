@@ -1,73 +1,81 @@
 
 
-# Plan: Contact Info Update, Scroll-to-Top, and Brand Loading Animation
+# Visual Overhaul for Category Pages
 
-## 1. Update Contact Info in Footer
+## Problem
+Category pages have plain text-only hero sections with no imagery, no energy, and no visual appeal. The Keyboards page has a massive vertical filter panel that pushes products far down. The overall feel is flat and uninspiring compared to gaming gear sites like Razer, SteelSeries, or Corsair.
 
-Replace the placeholder address and phone with V Horizon Properties' actual details:
-- **Address**: Delhi NCR, India (from vhorizonproperties.com)
-- **Phone**: +91 92175 64977 (from their WhatsApp link)
+## Design Direction
+Inspired by Razer/SteelSeries category pages: bold hero banners with background imagery, glowing accents, compact inline filters, and a more immersive gaming aesthetic.
 
-**File**: `src/components/Footer.tsx` -- update the MapPin and Phone text values.
+## Changes
 
-## 2. Scroll to Top on Page Navigation
+### 1. Create a Reusable CategoryHero Component
+**New file**: `src/components/CategoryHero.tsx`
 
-Currently, navigating between pages keeps the scroll position. Fix by creating a `ScrollToTop` component that listens to route changes and scrolls to top.
+A visually striking hero banner used across all category pages:
+- Full-width section with a background image (Unsplash gaming imagery per category)
+- Dark gradient overlay for text readability
+- Animated crimson accent lines / glow effects
+- Large bold title with gradient text
+- Subtitle text
+- Feature badges with icons (existing badge pattern)
+- Product count indicator
+- Subtle parallax-like effect on scroll (CSS only)
+- Height: ~50vh on desktop, auto on mobile
 
-**New file**: `src/components/ScrollToTop.tsx`
-- Uses `useLocation` from react-router-dom
-- `useEffect` calls `window.scrollTo(0, 0)` on pathname change
+### 2. Redesign ProductFilters as Compact Inline Bar
+**Modify**: `src/components/ProductFilters.tsx`
 
-**Modified file**: `src/App.tsx`
-- Add `<ScrollToTop />` inside `<BrowserRouter>` before `<Routes>`
+Replace the tall card-based vertical layout with a sleek horizontal filter bar:
+- Single-row layout: Search input + Category dropdown + Brand dropdown + Sort dropdown + Clear button
+- Collapsible on mobile (toggle button)
+- Price range as a popover instead of always-visible slider
+- Currency display fixed to ₹
+- Sticky below the navbar when scrolling past the hero
+- Compact, dark-themed styling matching the brand
 
-## 3. Brand Logo Loading Animation (Comet-style)
+### 3. Update All Category Pages
+**Modify**: `src/pages/Keyboards.tsx`, `src/pages/Mice.tsx`, `src/pages/Audio.tsx`, `src/pages/Accessories.tsx`
 
-Wearcomet.com shows a fullscreen loading screen with their logo (animated GIF) that plays on initial page load before revealing the site content. We'll replicate this with Strafion's logo:
+- Replace plain text hero with `<CategoryHero>` component
+- Add compact inline filters to Mice, Audio, Accessories (currently only Keyboards has filters)
+- Consistent grid layout: 1/2/3/4 columns across breakpoints
+- Add product count and "showing X products" text
+- Add subtle section dividers with crimson accent lines
 
-**New file**: `src/components/LoadingScreen.tsx`
-- Fullscreen overlay with black background
-- Strafion logo centered, with a pulse/scale animation
-- A crimson circular progress ring animating around the logo
-- After ~2 seconds, fades out and unmounts
-- Uses `useState` + `useEffect` with a timer
-- Stores a sessionStorage flag so it only shows once per session
+### 4. Enhanced ProductCard Hover Effects
+**Modify**: `src/components/ProductCard.tsx`
 
-**Modified file**: `src/App.tsx`
-- Import and render `<LoadingScreen />` at the top level
-- It auto-dismisses after the animation completes
+- Add a subtle crimson glow on hover (`shadow-crimson`)
+- Make "Add to Cart" button always visible on mobile (not just on hover)
+- Add a quick-view overlay effect on image hover
+- Smoother transitions
 
-**Modified file**: `src/index.css`
-- Add `@keyframes logo-pulse` and `@keyframes ring-spin` for the loading animation
+### 5. Add Category Background Images
+Use high-quality Unsplash images as hero backgrounds:
+- Keyboards: mechanical keyboard close-up with RGB lighting
+- Mice: gaming mouse with dramatic lighting
+- Audio: headset/audio gear with moody lighting
+- Accessories: gaming setup/desk with accessories
 
-### Technical Details
+### 6. CSS Additions
+**Modify**: `src/index.css`
 
-```text
-LoadingScreen Flow:
-┌──────────────────────┐
-│  Full-screen black   │
-│  overlay (z-[9999])  │
-│                      │
-│   ┌──────────────┐   │
-│   │  Strafion    │   │  Logo pulses/scales
-│   │    Logo      │   │  Crimson ring spins
-│   └──────────────┘   │
-│                      │
-│   Loading...         │  Fades out after 2s
-└──────────────────────┘
-```
-
-- `sessionStorage.getItem('strafion-loaded')` check -- skip animation on subsequent navigations within the same session
-- CSS animation: logo scales from 0.8 to 1.1 with a pulse, crimson glow ring rotates around it
-- Fade-out transition: opacity 1 -> 0 over 500ms, then `display: none`
+- Add `.category-hero-gradient` overlay class
+- Add crimson glow hover utilities
+- Add sticky filter bar styles
 
 ## Files Summary
 
 | Action | File |
 |--------|------|
-| Create | `src/components/ScrollToTop.tsx` |
-| Create | `src/components/LoadingScreen.tsx` |
-| Modify | `src/components/Footer.tsx` (lines 112, 116) |
-| Modify | `src/App.tsx` (add ScrollToTop + LoadingScreen) |
-| Modify | `src/index.css` (add loading keyframes) |
+| Create | `src/components/CategoryHero.tsx` |
+| Rewrite | `src/components/ProductFilters.tsx` |
+| Modify | `src/pages/Keyboards.tsx` |
+| Modify | `src/pages/Mice.tsx` |
+| Modify | `src/pages/Audio.tsx` |
+| Modify | `src/pages/Accessories.tsx` |
+| Modify | `src/components/ProductCard.tsx` |
+| Modify | `src/index.css` |
 
