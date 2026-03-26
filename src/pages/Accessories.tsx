@@ -1,56 +1,69 @@
+import { useState, useMemo } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ProductCard } from '@/components/ProductCard';
-import { Badge } from '@/components/ui/badge';
+import { ProductFilters } from '@/components/ProductFilters';
+import { CategoryHero } from '@/components/CategoryHero';
 import { Shield, Zap, Gamepad2 } from 'lucide-react';
 import { getProductsByCategory } from '@/data/products';
 import { motion } from 'framer-motion';
 
 const Accessories = () => {
   const accessories = getProductsByCategory('accessories');
+  const [filters, setFilters] = useState<any>({});
+
+  const filteredProducts = useMemo(() => {
+    let filtered = accessories;
+    if (filters.search) filtered = filtered.filter(p => p.name.toLowerCase().includes(filters.search.toLowerCase()));
+    if (filters.brand) filtered = filtered.filter(p => p.brand === filters.brand);
+    if (filters.minPrice) filtered = filtered.filter(p => p.price >= filters.minPrice);
+    if (filters.maxPrice) filtered = filtered.filter(p => p.price <= filters.maxPrice);
+    if (filters.sortBy === 'price-low') filtered = [...filtered].sort((a, b) => a.price - b.price);
+    if (filters.sortBy === 'price-high') filtered = [...filtered].sort((a, b) => b.price - a.price);
+    if (filters.sortBy === 'rating') filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+    return filtered;
+  }, [accessories, filters]);
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
-      <section className="pt-20 pb-16 bg-gradient-to-br from-background to-background/50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-text bg-clip-text text-transparent">
-              Gaming Accessories
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Complete your gaming setup with premium accessories designed for performance and style.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Shield className="w-4 h-4 mr-2" />Premium quality
-              </Badge>
-              <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Zap className="w-4 h-4 mr-2" />Performance focused
-              </Badge>
-              <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Gamepad2 className="w-4 h-4 mr-2" />Setup optimization
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section className="py-16">
+      <CategoryHero
+        title="Gaming Accessories"
+        subtitle="Complete your gaming setup with premium accessories designed for performance and style."
+        backgroundImage="https://images.unsplash.com/photo-1593152167544-085d3b9c4938?w=1920&q=80"
+        productCount={accessories.length}
+        features={[
+          { icon: Shield, label: 'Premium quality' },
+          { icon: Zap, label: 'Performance focused' },
+          { icon: Gamepad2, label: 'Setup optimization' },
+        ]}
+      />
+
+      <ProductFilters
+        onFiltersChange={setFilters}
+        categories={['accessories']}
+        brands={[...new Set(accessories.map(a => a.brand))]}
+      />
+
+      <section className="py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {accessories.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
+          <p className="text-sm text-muted-foreground mb-8">
+            Showing <span className="text-foreground font-medium">{filteredProducts.length}</span> products
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product, index) => (
+              <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.05 }}>
                 <ProductCard product={product} />
               </motion.div>
             ))}
           </div>
+          {filteredProducts.length === 0 && (
+            <div className="text-center py-20">
+              <h3 className="text-xl font-semibold mb-2">No accessories found</h3>
+              <p className="text-muted-foreground">Try adjusting your filters.</p>
+            </div>
+          )}
         </div>
       </section>
 
