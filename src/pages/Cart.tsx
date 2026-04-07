@@ -111,7 +111,9 @@ const Cart = () => {
                       <span>Total</span>
                       <span>₹{Math.round(getCartTotal() * 1.18).toLocaleString('en-IN')}</span>
                     </div>
-                    <Button className="w-full mt-6" size="lg">Proceed to Checkout</Button>
+                    <Button className="w-full mt-6" size="lg" asChild>
+                      <Link to="/checkout">Proceed to Checkout</Link>
+                    </Button>
                     <Button variant="outline" className="w-full" asChild>
                       <Link to="/keyboards">Continue Shopping</Link>
                     </Button>

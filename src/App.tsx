@@ -18,6 +18,12 @@ import Cart from "./pages/Cart";
 import Search from "./pages/Search";
 import { ProductDetail } from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
+import AboutUs from "./pages/AboutUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import Warranty from "./pages/Warranty";
+import Returns from "./pages/Returns";
+import Checkout from "./pages/Checkout";
 import LiveChat from "./components/LiveChat";
 import { MobileBottomNav } from "./components/MobileBottomNav";
 import { ScrollToTop } from "./components/ScrollToTop";
@@ -48,6 +54,12 @@ const App = () => (
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<Search />} />
               <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/warranty" element={<Warranty />} />
+              <Route path="/returns" element={<Returns />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <LiveChat />

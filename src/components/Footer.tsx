@@ -40,15 +40,16 @@ export const Footer = () => {
       links: [
         { label: 'Knowledge Base', href: '/support' },
         { label: 'Contact Us', href: '/support' },
-        { label: 'Warranty', href: '/support' },
-        { label: 'Returns', href: '/support' },
+        { label: 'Warranty', href: '/warranty' },
+        { label: 'Returns', href: '/returns' },
       ]
     },
     {
       title: 'Company',
       links: [
-        { label: 'About Us', href: '/support' },
-        { label: 'Careers', href: '/support' },
+        { label: 'About Us', href: '/about' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Terms of Service', href: '/terms' },
       ]
     }
   ];
@@ -165,10 +166,10 @@ export const Footer = () => {
               © {new Date().getFullYear()} Strafion. All rights reserved.
             </div>
             <div className="flex items-center gap-6 text-sm">
-              <Link to="/support" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/support" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">
                 Terms of Service
               </Link>
             </div>
