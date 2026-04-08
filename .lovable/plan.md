@@ -1,81 +1,42 @@
 
+# Remaining Improvements Plan
 
-# Visual Overhaul for Category Pages
+## Phase 1: Critical Bug Fixes
+1. **Fix navigate-in-render** in `Auth.tsx` and `Profile.tsx` — replace bare `navigate()` calls with `<Navigate>` component
+2. **Add password field** to Auth sign-in/sign-up forms for a realistic auth flow
+3. **Fix LiveChat overlap** with MobileBottomNav — add `bottom-20` on mobile so the chat button sits above the nav bar
 
-## Problem
-Category pages have plain text-only hero sections with no imagery, no energy, and no visual appeal. The Keyboards page has a massive vertical filter panel that pushes products far down. The overall feel is flat and uninspiring compared to gaming gear sites like Razer, SteelSeries, or Corsair.
+## Phase 2: SEO & Performance
+4. **Lazy-load routes** — wrap all page imports in `React.lazy` + `Suspense` in `App.tsx`
+5. **Add per-page meta tags** — use `document.title` and meta description via a custom `usePageMeta` hook
+6. **Add favicon** — replace default Vite favicon with Strafion brand icon
+7. **Add JSON-LD product schema** to `ProductDetail.tsx` for rich search results
 
-## Design Direction
-Inspired by Razer/SteelSeries category pages: bold hero banners with background imagery, glowing accents, compact inline filters, and a more immersive gaming aesthetic.
+## Phase 3: UX Polish
+8. **Add breadcrumb navigation** to category and product detail pages
+9. **Fix "Watch Review" hero button** — link to a relevant YouTube video or remove it
+10. **Add newsletter form submission** — show success toast on submit (localStorage-based)
+11. **Fix social media footer links** — point to actual social URLs or remove them
+12. **Add Cmd/Ctrl+K search shortcut** — open search page via keyboard
+13. **Add "Back to Top" button** on long pages
 
-## Changes
-
-### 1. Create a Reusable CategoryHero Component
-**New file**: `src/components/CategoryHero.tsx`
-
-A visually striking hero banner used across all category pages:
-- Full-width section with a background image (Unsplash gaming imagery per category)
-- Dark gradient overlay for text readability
-- Animated crimson accent lines / glow effects
-- Large bold title with gradient text
-- Subtitle text
-- Feature badges with icons (existing badge pattern)
-- Product count indicator
-- Subtle parallax-like effect on scroll (CSS only)
-- Height: ~50vh on desktop, auto on mobile
-
-### 2. Redesign ProductFilters as Compact Inline Bar
-**Modify**: `src/components/ProductFilters.tsx`
-
-Replace the tall card-based vertical layout with a sleek horizontal filter bar:
-- Single-row layout: Search input + Category dropdown + Brand dropdown + Sort dropdown + Clear button
-- Collapsible on mobile (toggle button)
-- Price range as a popover instead of always-visible slider
-- Currency display fixed to ₹
-- Sticky below the navbar when scrolling past the hero
-- Compact, dark-themed styling matching the brand
-
-### 3. Update All Category Pages
-**Modify**: `src/pages/Keyboards.tsx`, `src/pages/Mice.tsx`, `src/pages/Audio.tsx`, `src/pages/Accessories.tsx`
-
-- Replace plain text hero with `<CategoryHero>` component
-- Add compact inline filters to Mice, Audio, Accessories (currently only Keyboards has filters)
-- Consistent grid layout: 1/2/3/4 columns across breakpoints
-- Add product count and "showing X products" text
-- Add subtle section dividers with crimson accent lines
-
-### 4. Enhanced ProductCard Hover Effects
-**Modify**: `src/components/ProductCard.tsx`
-
-- Add a subtle crimson glow on hover (`shadow-crimson`)
-- Make "Add to Cart" button always visible on mobile (not just on hover)
-- Add a quick-view overlay effect on image hover
-- Smoother transitions
-
-### 5. Add Category Background Images
-Use high-quality Unsplash images as hero backgrounds:
-- Keyboards: mechanical keyboard close-up with RGB lighting
-- Mice: gaming mouse with dramatic lighting
-- Audio: headset/audio gear with moody lighting
-- Accessories: gaming setup/desk with accessories
-
-### 6. CSS Additions
-**Modify**: `src/index.css`
-
-- Add `.category-hero-gradient` overlay class
-- Add crimson glow hover utilities
-- Add sticky filter bar styles
+## Phase 4: E-commerce Polish
+14. **Add order history to Profile** — store completed orders in localStorage, show in Orders tab
+15. **Product image gallery** — add thumbnail strip to ProductDetail page
+16. **Related products section** on ProductDetail page
 
 ## Files Summary
 
 | Action | File |
 |--------|------|
-| Create | `src/components/CategoryHero.tsx` |
-| Rewrite | `src/components/ProductFilters.tsx` |
-| Modify | `src/pages/Keyboards.tsx` |
-| Modify | `src/pages/Mice.tsx` |
-| Modify | `src/pages/Audio.tsx` |
-| Modify | `src/pages/Accessories.tsx` |
-| Modify | `src/components/ProductCard.tsx` |
-| Modify | `src/index.css` |
-
+| Modify | `src/pages/Auth.tsx` |
+| Modify | `src/pages/Profile.tsx` |
+| Modify | `src/components/LiveChat.tsx` |
+| Modify | `src/App.tsx` |
+| Create | `src/hooks/usePageMeta.ts` |
+| Modify | `src/pages/ProductDetail.tsx` |
+| Modify | `src/components/Navigation.tsx` |
+| Modify | `src/components/Footer.tsx` |
+| Modify | `src/pages/Index.tsx` |
+| Modify | `src/lib/localStorage.ts` |
+| Modify | `index.html` |
