@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { saveOrder, LocalOrderItem } from '@/lib/localStorage';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -51,6 +52,13 @@ const Checkout = () => {
     // Simulate order processing
     setTimeout(() => {
       const id = 'STR-' + Date.now().toString(36).toUpperCase();
+      const orderItems: LocalOrderItem[] = items.map(ci => {
+        const p = getProductById(ci.productId);
+        return { productId: ci.productId, name: p?.name || 'Product', price: p?.price || 0, quantity: ci.quantity };
+      });
+      const subtotal = getCartTotal();
+      const gst = Math.round(subtotal * 0.18);
+      saveOrder({ id, items: orderItems, subtotal, gst, total: subtotal + gst, status: 'Confirmed', createdAt: new Date().toISOString() });
       setOrderId(id);
       setOrderPlaced(true);
       clearCart();

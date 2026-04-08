@@ -126,7 +126,7 @@ export const HeroCarousel = () => {
                 variant="gaming" 
                 size="xl" 
                 className="font-rajdhani font-semibold"
-                onClick={() => window.open('https://www.youtube.com/watch?v=mechanical-keyboard-review', '_blank')}
+                onClick={() => window.open('https://www.youtube.com/results?search_query=mechanical+keyboard+review', '_blank')}
               >
                 WATCH REVIEW
               </Button>
