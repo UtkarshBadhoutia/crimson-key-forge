@@ -62,7 +62,7 @@ const LiveChat = () => {
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 hidden md:block">
+      <div className="fixed bottom-20 lg:bottom-6 right-6 z-50 hidden md:block">
         <Button onClick={() => setIsOpen(true)} className="rounded-full w-14 h-14 shadow-lg hover:shadow-xl transition-shadow" size="icon">
           <MessageCircle size={24} />
         </Button>
