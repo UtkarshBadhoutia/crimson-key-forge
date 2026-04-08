@@ -136,6 +136,38 @@ export const deleteReviewById = (reviewId: string) => {
   localStorage.setItem(REVIEWS_KEY, JSON.stringify(all));
 };
 
+// ─── Orders ──────────────────────────────────────────────
+export interface LocalOrderItem {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export interface LocalOrder {
+  id: string;
+  items: LocalOrderItem[];
+  subtotal: number;
+  gst: number;
+  total: number;
+  status: string;
+  createdAt: string;
+}
+
+const ORDERS_KEY = 'strafion_orders';
+
+export const getOrders = (): LocalOrder[] => {
+  try {
+    return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
+  } catch { return []; }
+};
+
+export const saveOrder = (order: LocalOrder) => {
+  const orders = getOrders();
+  orders.unshift(order);
+  localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+};
+
 // ─── Recently Viewed ─────────────────────────────────────
 export const getRecentlyViewedIds = (): string[] => {
   try {

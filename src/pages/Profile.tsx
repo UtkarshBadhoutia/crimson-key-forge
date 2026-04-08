@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,13 +8,15 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
+import { usePageMeta } from "@/hooks/usePageMeta";
+import { getOrders, LocalOrder } from "@/lib/localStorage";
 import { ShoppingCart, Package, Star, Settings, LogOut } from "lucide-react";
 
 const Profile = () => {
+  usePageMeta({ title: 'Profile', description: 'Manage your Strafion account.' });
   const { user, signOut, updateProfile } = useAuth();
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
@@ -21,10 +24,9 @@ const Profile = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/auth");
-    return null;
-  }
+  if (!user) return <Navigate to="/auth" replace />;
+
+  const orders: LocalOrder[] = getOrders();
 
   const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,10 +44,8 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/80">
       <Navigation />
-      
       <main className="container mx-auto px-4 py-8 mt-20">
         <div className="max-w-4xl mx-auto">
-          {/* Profile Header */}
           <Card className="mb-8 bg-card/50 backdrop-blur-sm border-border/50">
             <CardHeader>
               <div className="flex items-start justify-between">
@@ -73,7 +73,6 @@ const Profile = () => {
             </CardHeader>
           </Card>
 
-          {/* Profile Tabs */}
           <Tabs defaultValue="settings" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="orders" className="flex items-center gap-2">
@@ -97,12 +96,29 @@ const Profile = () => {
                   <CardDescription>Track your orders and view past purchases</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-12">
-                    <ShoppingCart className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
-                    <p className="text-muted-foreground mb-4">Start shopping to see your orders here</p>
-                    <Button onClick={() => navigate("/keyboards")}>Browse Products</Button>
-                  </div>
+                  {orders.length === 0 ? (
+                    <div className="text-center py-12">
+                      <ShoppingCart className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                      <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
+                      <p className="text-muted-foreground mb-4">Start shopping to see your orders here</p>
+                      <Button onClick={() => navigate("/keyboards")}>Browse Products</Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {orders.map((order) => (
+                        <div key={order.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
+                          <div>
+                            <p className="font-semibold">{order.id}</p>
+                            <p className="text-sm text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()} · {order.items.length} item{order.items.length > 1 ? 's' : ''}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-bold text-primary">₹{order.total.toLocaleString('en-IN')}</p>
+                            <Badge variant="secondary" className="bg-green-900/30 text-green-400">{order.status}</Badge>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
@@ -155,7 +171,6 @@ const Profile = () => {
           </Tabs>
         </div>
       </main>
-
       <Footer />
     </div>
   );
